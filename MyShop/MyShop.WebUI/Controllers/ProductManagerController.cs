@@ -5,6 +5,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using MyShop.Core.Models;
+using MyShop.Core.ViewModels;
 using MyShop.DataAccess.InMemory;
 
 namespace MyShop.WebUI.Controllers
@@ -12,9 +13,11 @@ namespace MyShop.WebUI.Controllers
     public class ProductManagerController : Controller
     {
         ProductRepository context;//this comes form the DataAccess.InMemory is the CRUD operations in cache
+        ProductCategoryRepository productCategories;
         public ProductManagerController()
         {
             context = new ProductRepository();
+            productCategories = new ProductCategoryRepository();
         }
         // GET: ProductManager
         public ActionResult Index()
@@ -26,8 +29,10 @@ namespace MyShop.WebUI.Controllers
 
         public ActionResult Create()
         {
-            Product product = new Product();
-            return View(product);
+            ProductManagerViewModel viewModel = new ProductManagerViewModel();
+            viewModel.Product = new Product();
+            viewModel.ProductCategories = productCategories.Collection();
+            return View(viewModel);
         }
         [HttpPost]
         public ActionResult Create(Product product)
@@ -49,8 +54,10 @@ namespace MyShop.WebUI.Controllers
             Product productToEdit = context.Find(Id);
             if (productToEdit != null)
             {
-
-                return View(productToEdit);
+                ProductManagerViewModel viewModel = new ProductManagerViewModel();
+                viewModel.Product = productToEdit;
+                viewModel.ProductCategories = productCategories.Collection();
+                return View(viewModel);
             }
             else
             {
