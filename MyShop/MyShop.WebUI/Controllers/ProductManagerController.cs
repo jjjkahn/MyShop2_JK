@@ -12,12 +12,13 @@ namespace MyShop.WebUI.Controllers
 {
     public class ProductManagerController : Controller
     {
-        ProductRepository context;//this comes form the DataAccess.InMemory is the CRUD operations in cache
-        ProductCategoryRepository productCategories;
+        InMemoryRepository<Product> context;//this comes form the DataAccess.InMemory is the CRUD operations in cache
+        InMemoryRepository<ProductCategory> productCategories;
+       
         public ProductManagerController()
         {
-            context = new ProductRepository();
-            productCategories = new ProductCategoryRepository();
+            context = new InMemoryRepository<Product>();
+            productCategories = new InMemoryRepository<ProductCategory>();
         }
         // GET: ProductManager
         public ActionResult Index()

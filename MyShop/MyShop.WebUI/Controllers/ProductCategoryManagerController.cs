@@ -10,10 +10,10 @@ namespace MyShop.WebUI.Controllers
 {
     public class ProductCategoryManagerController : Controller
     {
-        ProductCategoryRepository context;//this comes form the DataAccess.InMemory is the CRUD operations in cache
+        InMemoryRepository<ProductCategory>  context;//this comes form the DataAccess.InMemory is the CRUD operations in cache
         public ProductCategoryManagerController()
         {
-            context = new ProductCategoryRepository();
+            context = new InMemoryRepository<ProductCategory>();
         }
         // GET: ProductManager
         public ActionResult Index()
