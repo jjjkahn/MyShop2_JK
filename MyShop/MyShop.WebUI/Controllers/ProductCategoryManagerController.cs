@@ -1,4 +1,5 @@
-﻿using MyShop.Core.Models;
+﻿using MyShop.Core.Contracts;
+using MyShop.Core.Models;
 using MyShop.DataAccess.InMemory;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,10 @@ namespace MyShop.WebUI.Controllers
 {
     public class ProductCategoryManagerController : Controller
     {
-        InMemoryRepository<ProductCategory>  context;//this comes form the DataAccess.InMemory is the CRUD operations in cache
-        public ProductCategoryManagerController()
+        IRepository<ProductCategory>  context;//this comes form the DataAccess.InMemory is the CRUD operations in cache
+        public ProductCategoryManagerController(IRepository<ProductCategory> productContext)
         {
-            context = new InMemoryRepository<ProductCategory>();
+            context = productContext;
         }
         // GET: ProductManager
         public ActionResult Index()
